@@ -1,0 +1,54 @@
+import tkinter as tk
+
+def calcular():
+    try:
+        num1 = float(entrada_num1.get())
+        num2 = float(entrada_num2.get())
+        operacion = operacion_var.get()
+
+        if operacion == "Suma":
+            resultado = num1 + num2
+        elif operacion == "Resta":
+            resultado = num1 - num2
+        elif operacion == "Multiplicación":
+            resultado = num1 * num2
+        elif operacion == "División":
+            if num2 != 0:
+                resultado = num1 / num2
+            else:
+                resultado = "Error: División por cero"
+
+        resultado_label.config(text=str(resultado), fg="green")
+    except ValueError:
+        resultado_label.config(text="Error: Entrada inválida", fg="red")
+
+# Configuración de la ventana
+root = tk.Tk()
+root.title("Calculadora")
+root.geometry("300x200")
+root.configure(bg="white")
+
+# Etiquetas
+tk.Label(root, text="Número 1:", bg="white").pack()
+entrada_num1 = tk.Entry(root)
+entrada_num1.pack()
+
+tk.Label(root, text="Número 2:", bg="white").pack()
+entrada_num2 = tk.Entry(root)
+entrada_num2.pack()
+
+tk.Label(root, text="Operación:", bg="white").pack()
+operacion_var = tk.StringVar()
+operacion_var.set("Suma")
+operacion_menu = tk.OptionMenu(root, operacion_var, "Suma", "Resta", "Multiplicación", "División")
+operacion_menu.pack()
+
+# Botón para calcular
+calcular_btn = tk.Button(root, text="Calcular", command=calcular, bg="green", fg="white")
+calcular_btn.pack()
+
+# Etiqueta para mostrar el resultado
+resultado_label = tk.Label(root, text="", bg="white")
+resultado_label.pack()
+
+root.mainloop()
